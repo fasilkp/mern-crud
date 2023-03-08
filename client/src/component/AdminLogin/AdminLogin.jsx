@@ -36,7 +36,7 @@ function AdminLogin() {
                     <form onSubmit={handleSubmit}>
                       <div className="d-flex align-items-center mb-3 pb-1">
                         <i className="fas fa-cubes fa-2x me-3"></i>
-                        <span className="h1 fw-bold mb-0">Logo</span>
+                        <span className="h1 fw-bold mb-0">Login</span>
                       </div>
 
                       <h5 className="fw-normal mb-3 pb-3">
