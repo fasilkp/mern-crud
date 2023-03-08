@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function AdminLogin() {
+    const [email, setEmail]=useState("")
+    const [password, setPassword]=useState("")
+    // const [valdate, setValidate]=
+    function validateForm(){
+        if(email.replaceAll(' ', "")==="" || password.replaceAll(' ',"")===""){
+            return true
+        }
+        return false
+    }
+    function handleSubmit(e){
+        e.preventDefault()
+        console.log(email, password)
+    }
   return (
     <section className="vh-100">
   <div className="container py-5 h-100">
@@ -16,27 +29,27 @@ function AdminLogin() {
             <div className="col-md-6 col-lg-7 d-flex align-items-center">
               <div className="card-body p-4 p-lg-5 text-black">
 
-                <form>
+                <form onSubmit={handleSubmit}>
 
                   <div className="d-flex align-items-center mb-3 pb-1">
                     <i className="fas fa-cubes fa-2x me-3"  ></i>
                     <span className="h1 fw-bold mb-0">Logo</span>
                   </div>
 
-                  <h5 className="fw-normal mb-3 pb-3"  >Sign into your account</h5>
+                  <h5 className="fw-normal mb-3 pb-3" >Sign into your account</h5>
 
                   <div className="form-outline mb-4">
-                    <label className="form-label" for="form2Example17">Email address</label>
-                    <input type="email" id="form2Example17" className="form-control form-control-lg" />
+                    <label className="form-label" htmlFor="form2Example17">Email address</label>
+                    <input type="email" id="form2Example17" value={email} onChange={(e)=>setEmail(e.target.value)} className="form-control form-control-lg" />
                   </div>
 
                   <div className="form-outline mb-4">
-                    <label className="form-label" for="form2Example27">Password</label>
-                    <input type="password" id="form2Example27" className="form-control form-control-lg" />
+                    <label className="form-label" htmlFor="form2Example27">Password</label>
+                    <input type="password" id="form2Example27" value={password} onChange={(e)=>setPassword(e.target.value)} className="form-control form-control-lg" />
                   </div>
 
                   <div className="pt-1 mb-4">
-                    <button className="btn btn-dark btn-lg btn-block" type="button">Login</button>
+                    <button className="btn btn-dark btn-lg btn-block" type="submit" disabled={validateForm()}>Login</button>
                   </div>
 
                   {/* <a className="small text-muted" href="#!">Forgot password?</a> */}
