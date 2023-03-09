@@ -51,6 +51,12 @@ export async function getUsersList(req, res){
 
 }
 
+export async function getUser(req, res){
+    let users = await UserModel.findById(req.params.id);
+    res.json(user)
+
+}
+
 export async function createUser(req, res){
     try
     {
@@ -92,3 +98,4 @@ export async function editUser(req, res){
         console.log(err);
     } 
 }
+
