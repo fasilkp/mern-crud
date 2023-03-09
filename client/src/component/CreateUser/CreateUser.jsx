@@ -28,9 +28,10 @@ function CreateUser() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!validationErr()) {
-      let {data}=await axios.post("/register", {
+      let {data}=await axios.post("/admin/create-user", {
         name, email, password, about, proffession
       });
+      console.log(data)
       if(!data.error){
           return navigate("/admin/")
       }else{

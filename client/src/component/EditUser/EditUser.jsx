@@ -10,15 +10,12 @@ function EditUser() {
   const [proffession, setProffession] = useState("");
   const [about, setAbout] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [errMessage, setErrMessage]=useState(null)
   const navigate= useNavigate()
   const {id}=useParams()
-  console.log(id)
   function validationErr() {
     if (
       email.replaceAll(" ", "") === "" ||
-      password.replaceAll(" ", "") === "" ||
       about.replaceAll(" ", "") === "" ||
       proffession.replaceAll(" ", "") === "" ||
       name.replaceAll(" ", "") === ""
@@ -30,8 +27,8 @@ function EditUser() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!validationErr()) {
-      let {data}=await axios.post("/register", {
-        name, email, password, about, proffession
+      let {data}=await axios.post("/edit-user", {
+        name, email, about, proffession
       });
       if(!data.error){
           return navigate("/admin/")
@@ -59,7 +56,7 @@ function EditUser() {
                   </div> */}
 
                       <h5 className="fw-normal mb-3 pb-3">
-                        Create New User
+                        Update User
                       </h5>
 
                       <div className="form-outline mb-4">
@@ -110,17 +107,6 @@ function EditUser() {
                         ></textarea>
                       </div>
 
-                      <div className="form-outline mb-4">
-                        <label className="form-label" htmlFor="form2Example27">
-                          Password
-                        </label>
-                        <input
-                          type="password"
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                          className="form-control form-control-lg"
-                        />
-                      </div>
                       <div className="form-outline mb-4">
                         <label className="form-label text-danger" htmlFor="form2Example27">
                           {errMessage && errMessage}

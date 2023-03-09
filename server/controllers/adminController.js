@@ -2,6 +2,9 @@ import UserModel from '../models/userModel.js';
 import bcrypt from "bcryptjs"
 import jwt from 'jsonwebtoken'
 
+var salt = bcrypt.genSaltSync(10);
+
+
 export async function adminLogin(req, res){
     try
     {
@@ -65,6 +68,27 @@ export async function createUser(req, res){
     }
     catch(err){
         res.json({error:err})
+        console.log(err);
+    } 
+}
+
+
+export async function editUser(req, res){
+    try
+    {
+        const {name, email, about, proffession, id}=req.body;
+        const user=await UserModel.findOne({email});
+        if(user){
+            return res.json({error:true, message:"User Already Exist"})
+        }
+        await UserModel.findByIdAndUpdate(id, {$set:{
+            name, email, proffession, about
+        }})
+
+        return res.json({error:false})
+    }
+    catch(err){
+        res.json({error:err, message:"Something went wrong"})
         console.log(err);
     } 
 }
