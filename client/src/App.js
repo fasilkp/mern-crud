@@ -7,12 +7,15 @@ import AdminLogin from "./component/AdminLogin/AdminLogin";
 import AdminHome from "./component/AdminHome/AdminHome";
 import CreateUser from "./component/CreateUser/CreateUser";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 function App() {
-  const user= useSelector((state)=>{
-    return state.user
-})
-console.log(user)
+  axios.defaults.baseURL = "http://localhost:5000/";
+
+  const user = useSelector((state) => {
+    return state.user;
+  });
+  console.log(user);
   return (
     <Router>
       <div className="App">
@@ -23,7 +26,6 @@ console.log(user)
           <Route path="/admin" element={<AdminHome />}></Route>
           <Route path="/admin/login" element={<AdminLogin />}></Route>
           <Route path="/admin/create-user" element={<CreateUser />}></Route>
-        
         </Routes>
       </div>
     </Router>

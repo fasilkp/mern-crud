@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "../UserLogin/userlogin.css";
 import login from "../../images/login.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function UserRegister() {
   const [name, setName] = useState("");
@@ -9,7 +10,9 @@ function UserRegister() {
   const [about, setAbout] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  function validateForm() {
+  const [errMessage, setErrMessage]=useState(null)
+  const navigate= useNavigate()
+  function validationErr() {
     if (
       email.replaceAll(" ", "") === "" ||
       password.replaceAll(" ", "") === "" ||
@@ -21,7 +24,21 @@ function UserRegister() {
     }
     return false;
   }
-  console.log(name, email, about, password, proffession)
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!validationErr()) {
+      let {data}=await axios.post("/register", {
+        name, email, password, about, proffession
+      });
+      console.log(data)
+      if(!data.error){
+          return navigate("/")
+      }else{
+        setErrMessage(data.message)
+      }
+    }
+  }
+  console.log(name, email, about, password, proffession);
   return (
     <section className="vh-100 login">
       <div className="container py-5 h-100">
@@ -34,7 +51,7 @@ function UserRegister() {
                 </div>
                 <div className="col-md-6 col-lg-7 d-flex align-items-center">
                   <div className="card-body p-4 p-lg-5 text-black">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                       {/* <div className="d-flex align-items-center mb-3 pb-1">
                     <i className="fas fa-cubes fa-2x me-3"  ></i>
                     <span className="h1 fw-bold mb-0">Logo</span>
@@ -103,14 +120,19 @@ function UserRegister() {
                           className="form-control form-control-lg"
                         />
                       </div>
+                      <div className="form-outline mb-4">
+                        <label className="form-label text-danger" htmlFor="form2Example27">
+                          {errMessage && errMessage}
+                        </label>
+                      </div>
 
                       <div className="pt-1 mb-4">
                         <button
                           className="btn btn-dark btn-lg btn-block"
                           type="submit"
-                          disabled={validateForm()}
+                          disabled={validationErr()}
                         >
-                          Login
+                          Register
                         </button>
                       </div>
 
