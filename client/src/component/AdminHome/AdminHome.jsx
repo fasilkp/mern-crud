@@ -1,18 +1,22 @@
-import React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import React, { useState } from "react";
 import "./adminhome.css";
 import AdminHeader from "../AdminHeader/AdminHeader";
+import { useEffect } from "react";
+import axios from "axios";
 
 function AdminHome() {
+  const [users, setUsers]=useState([])
+  const [search, setSearch]=useState('')
+  useEffect(()=>{
+    (async function(){
+        let {data} = await axios.get("/admin/users?search="+search);
+        console.log(data)
+        setUsers(data)
+    })()
+  },[search])
   return (
     <>
-      <AdminHeader></AdminHeader>
+      <AdminHeader setSearch={setSearch} search={search}></AdminHeader>
       <div className="table-main">
         <div className="table-container">
           <table className="table align-middle mb-0 bg-white mt-3">
@@ -25,114 +29,50 @@ function AdminHome() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <div className="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                      alt=""
-                      style={{width: "45px", height: "45px"}}
-                      className="rounded-circle"
-                    />
-                    <div className="ms-3">
-                      <p className="fw-bold mb-1">John Doe</p>
-                      
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p className="fw-normal mb-1">email@gmail.com</p>
-                </td>
-                <td>Senior</td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn btn-dark btn-rounded btn-sm fw-bold me-1"
-                    data-mdb-ripple-color="dark"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline-dark btn-rounded btn-sm fw-bold"
-                    data-mdb-ripple-color="dark"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div className="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                      alt=""
-                      style={{width: "45px", height: "45px"}}
-                      className="rounded-circle"
-                    />
-                    <div className="ms-3">
-                      <p className="fw-bold mb-1">John Doe</p>
-                      
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p className="fw-normal mb-1">email@gmail.com</p>
-                </td>
-                <td>Senior</td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn btn-dark btn-rounded btn-sm fw-bold me-1"
-                    data-mdb-ripple-color="dark"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline-dark btn-rounded btn-sm fw-bold"
-                    data-mdb-ripple-color="dark"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div className="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                      alt=""
-                      style={{width: "45px", height: "45px"}}
-                      className="rounded-circle"
-                    />
-                    <div className="ms-3">
-                      <p className="fw-bold mb-1">John Doe</p>
-                      
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p className="fw-normal mb-1">email@gmail.com</p>
-                </td>
-                <td>Senior</td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn btn-dark btn-rounded btn-sm fw-bold me-1"
-                    data-mdb-ripple-color="dark"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline-dark btn-rounded btn-sm fw-bold"
-                    data-mdb-ripple-color="dark"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
+                {
+                  users.map((item, index)=>{
+                    return (
+                      <tr key={index}>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <img
+                            src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                            alt=""
+                            style={{width: "45px", height: "45px"}}
+                            className="rounded-circle"
+                          />
+                          <div className="ms-3">
+                            <p className="fw-bold mb-1">{item.name}</p>
+                            
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <p className="fw-normal mb-1">{item.email}</p>
+                      </td>
+                      <td>{item.proffession}</td>
+                      <td>
+                        <button
+                          type="button"
+                          className="btn btn-dark btn-rounded btn-sm fw-bold me-1"
+                          data-mdb-ripple-color="dark"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-outline-dark btn-rounded btn-sm fw-bold"
+                          data-mdb-ripple-color="dark"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                    )
+                  })
+                }
+              
+              
               
             </tbody>
           </table>

@@ -2,14 +2,14 @@ import React from 'react'
 import { FiSearch } from "react-icons/fi";
 import { Link } from 'react-router-dom';
 import './AdminHeader.css'
-function adminHeader() {
+function adminHeader({search, setSearch}) {
   return (
     <div className="navBar">
       <div className="navContainer">
         
         <div className="nav-sec 1">
           <div className="searchBox">
-            <input type="text" placeholder='search user' />
+            <input type="text" placeholder='search user' value={search} onChange={(e)=>setSearch(e.target.value)} />
             <FiSearch></FiSearch>
           </div>
           <Link to="/admin/create-user">

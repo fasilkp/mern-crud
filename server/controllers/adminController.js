@@ -43,7 +43,8 @@ export const adminLogout=async (req, res) => {
 
 
 export async function getUsersList(req, res){
-    let users = await UserModel.find({},{password:0}).lean();
+    let users = await UserModel.find({admin:{$ne:true}, name:new RegExp(req.query.search, 'i')}, {password:0}).lean();
+    console.log(users)
     res.json(users)
 
 }
