@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import dbConnect from "./config/dbConnect.js"
 import cookieParser from 'cookie-parser';
+import userRouter from './routers/userRouter.js'
 import 'dotenv/config'
 
 const app=express();
@@ -18,7 +19,7 @@ app.use(
 
 dbConnect();
 
-app.get('/',(req, res)=>{res.send("welcome")})
+app.use('/',userRouter)
 
 app.listen(5000, ()=>{
     console.log("server running on port 5000")

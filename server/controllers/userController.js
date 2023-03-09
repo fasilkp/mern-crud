@@ -1,4 +1,4 @@
-import UserModel from '../models/user.js';
+import UserModel from '../models/userModel.js';
 import bcrypt from "bcryptjs"
 import jwt from 'jsonwebtoken'
 
@@ -49,4 +49,13 @@ export async function userLogin(req, res){
         res.json({success:false,message:"server error", error:err})
         console.log(err);
     }
+}
+
+export const UserLogout=async (req, res) => {
+    res.cookie("token", "", {
+        httpOnly: true,
+        expires: new Date(0),
+        secure: true,
+        sameSite: "none",
+      }).json({"message":"logged out"});
 }
