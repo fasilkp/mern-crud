@@ -6,9 +6,9 @@ import UserRegister from "./component/UserRegister/UserRegister";
 import AdminLogin from "./component/AdminLogin/AdminLogin";
 import AdminHome from "./component/AdminHome/AdminHome";
 import CreateUser from "./component/CreateUser/CreateUser";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import EditUser from "./component/EditUser/EditUser";
 
 function App() {
@@ -17,9 +17,9 @@ function App() {
   const user = useSelector((state) => {
     return state.user;
   });
-  useEffect(()=>{
-    console.log(Math.random())
-  },[])
+  // useEffect(()=>{
+  //   console.log(Math.random())
+  // },[])
   return (
     <Router>
       <div className="App">

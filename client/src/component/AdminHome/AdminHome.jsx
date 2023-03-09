@@ -3,6 +3,7 @@ import "./adminhome.css";
 import AdminHeader from "../AdminHeader/AdminHeader";
 import { useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function AdminHome() {
   const [users, setUsers]=useState([])
@@ -51,13 +52,15 @@ function AdminHome() {
                       </td>
                       <td>{item.proffession}</td>
                       <td>
+                        <Link to={"/admin/edit-user/"+item._id}>
                         <button
                           type="button"
                           className="btn btn-dark btn-rounded btn-sm fw-bold me-1"
                           data-mdb-ripple-color="dark"
-                        >
+                          >
                           Edit
                         </button>
+                          </Link>
                         <button
                           type="button"
                           className="btn btn-outline-dark btn-rounded btn-sm fw-bold"

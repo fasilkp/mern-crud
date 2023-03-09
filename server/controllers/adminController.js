@@ -52,7 +52,7 @@ export async function getUsersList(req, res){
 }
 
 export async function getUser(req, res){
-    let users = await UserModel.findById(req.params.id);
+    let user = await UserModel.findById(req.params.id);
     res.json(user)
 
 }
@@ -83,10 +83,7 @@ export async function editUser(req, res){
     try
     {
         const {name, email, about, proffession, id}=req.body;
-        const user=await UserModel.findOne({email});
-        if(user){
-            return res.json({error:true, message:"User Already Exist"})
-        }
+        console.log(id)
         await UserModel.findByIdAndUpdate(id, {$set:{
             name, email, proffession, about
         }})

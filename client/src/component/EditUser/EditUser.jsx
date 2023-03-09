@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../UserLogin/userlogin.css";
 import editImg from "../../images/edit.avif";
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 function EditUser() {
@@ -27,8 +27,8 @@ function EditUser() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!validationErr()) {
-      let {data}=await axios.post("/edit-user", {
-        name, email, about, proffession
+      let {data}=await axios.post("/admin/edit-user", {
+        name, email, about, proffession,id
       });
       if(!data.error){
           return navigate("/admin/")
@@ -37,6 +37,17 @@ function EditUser() {
       }
     }
   }
+  useEffect(()=>{
+    (async function(){
+        console.log(id)
+        let {data}=await axios.get("/admin/user/"+id);
+        setName(data.name)
+        setEmail(data.email)
+        setProffession(data.proffession)
+        setAbout(data.about)
+    })()
+
+  },[])
   return (
     <section className="vh-100 login">
       <div className="container py-5 h-100">
