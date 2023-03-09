@@ -96,3 +96,17 @@ export async function editUser(req, res){
     } 
 }
 
+
+export async function deleteUser(req, res){
+    try
+    {
+        const {id}=req.body;
+        await UserModel.findByIdAndDelete(id);
+        return res.json({error:false})
+    }
+    catch(err){
+        res.json({error:err, message:"Something went wrong"})
+        console.log(err);
+    } 
+}
+

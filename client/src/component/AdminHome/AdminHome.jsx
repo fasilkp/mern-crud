@@ -8,12 +8,19 @@ import { Link } from "react-router-dom";
 function AdminHome() {
   const [users, setUsers]=useState([])
   const [search, setSearch]=useState('')
+  const [refresh, setRefresh]=useState(false)
   useEffect(()=>{
     (async function(){
         let {data} = await axios.get("/admin/users?search="+search);
         setUsers(data)
     })()
-  },[search])
+  },[search, refresh])
+  async function deleteUser(id){
+    if(window.confirm("Are you sure delete this user")){
+      await axios.post("/admin/delete-user", {id});
+      setRefresh(!refresh)
+    }
+  }
   return (
     <>
       <AdminHeader setSearch={setSearch} search={search}></AdminHeader>
@@ -63,6 +70,7 @@ function AdminHome() {
                           </Link>
                         <button
                           type="button"
+                          onClick={()=>deleteUser(item._id)}
                           className="btn btn-outline-dark btn-rounded btn-sm fw-bold"
                           data-mdb-ripple-color="dark"
                         >
