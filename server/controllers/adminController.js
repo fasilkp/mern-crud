@@ -9,7 +9,7 @@ export async function adminLogin(req, res){
         const admin=await UserModel.findOne({email, admin:true})
         if(!admin) 
             return res.json({error:true,message:"You have no admin access"})
-        const adminValid=bcrypt.compareSync(password, user.password);
+        const adminValid=bcrypt.compareSync(password, admin.password);
         if(!adminValid) 
             return res.json({error:true, message:"wrong Password"})
         const token=jwt.sign(
@@ -24,7 +24,7 @@ export async function adminLogin(req, res){
                 secure: true,
                 maxAge: 1000 * 60 * 60 * 24 * 7,
                 sameSite: "none",
-            }).json({error:false, user:user._id})
+            }).json({error:false})
     }
     catch(err){
         res.json({message:"server error", error:err})

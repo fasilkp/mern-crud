@@ -1,10 +1,14 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  function validateForm() {
+  const [errMessage, setErrMessage] = useState(null);
+  const navigate = useNavigate();
+
+  function validationErr() {
     if (
       email.replaceAll(" ", "") === "" ||
       password.replaceAll(" ", "") === ""
@@ -13,9 +17,20 @@ function AdminLogin() {
     }
     return false;
   }
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(email, password);
+    if (!validationErr()) {
+      let { data } = await axios.post("/admin/login", {
+        email,
+        password,
+      });
+      console.log(data)
+      if (!data.error) {
+        return navigate("/admin/");
+      } else {
+        setErrMessage(data.message);
+      }
+    }
   }
   return (
     <section className="vh-100">
@@ -68,12 +83,17 @@ function AdminLogin() {
                           className="form-control form-control-lg"
                         />
                       </div>
+                      <div className="form-outline mb-4">
+                        <label className="form-label text-danger" htmlFor="form2Example27">
+                          {errMessage && errMessage}
+                        </label>
+                  </div>
 
                       <div className="pt-1 mb-4">
                         <button
                           className="btn btn-dark btn-lg btn-block"
                           type="submit"
-                          disabled={validateForm()}
+                          disabled={validationErr()}
                         >
                           Login
                         </button>
