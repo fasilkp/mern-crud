@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import axios from 'axios'
 import './userhome.css'
 
 function UserHome() {
-    
+    useEffect(()=>{
+        (async function(){
+            const {data} = await axios.get('/check-auth');
+            console.log(data)
+        })()
+    },[])
     
   return (
     <div className="container mt-5">

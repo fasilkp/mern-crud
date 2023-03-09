@@ -1,9 +1,9 @@
 import express from 'express';
-import { adminLogin } from '../controllers/adminController.js';
+import { adminLogin,  getUsersList } from '../controllers/adminController.js';
 
 const router=express.Router();
 
-router.get("/", (req, res)=>{res.json("hai admin")})
+router.get("/users", getUsersList)
 router.post("/login", adminLogin)
 
 

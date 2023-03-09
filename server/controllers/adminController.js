@@ -40,3 +40,10 @@ export const adminLogout=async (req, res) => {
         sameSite: "none",
       }).json({message:"logged out", error:false});
 }
+
+
+export async function getUsersList(req, res){
+    let users = await UserModel.find({},{password:0}).lean();
+    res.json(users)
+
+}

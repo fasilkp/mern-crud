@@ -7,6 +7,6 @@ router.get("/", (req, res)=>{res.json("hai")})
 router.post("/register", userRegister)
 router.post("/login", userLogin)
 router.post("/logout", userLogout)
-router.post("/check-auth", checkUserLoggedIn)
+router.get("/check-auth", checkUserLoggedIn)
 
 export default router

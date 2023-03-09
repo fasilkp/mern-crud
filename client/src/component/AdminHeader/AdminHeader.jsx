@@ -1,5 +1,6 @@
 import React from 'react'
 import { FiSearch } from "react-icons/fi";
+import { Link } from 'react-router-dom';
 import './AdminHeader.css'
 function adminHeader() {
   return (
@@ -11,7 +12,9 @@ function adminHeader() {
             <input type="text" placeholder='search user' />
             <FiSearch></FiSearch>
           </div>
+          <Link to="/admin/create-user">
           <button className='btn btn-dark'>Create User</button>
+          </Link>
 
         </div>
         <div className="nav-sec 2">

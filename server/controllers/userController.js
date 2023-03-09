@@ -52,12 +52,13 @@ export async function userLogin(req, res){
             }, 
             "myjwtsecretkey"
         )
+        console.log(token)
         // const exp= new Date()+ 1000*60;
         return res.cookie("token", token, {
-                httpOnly: true,
-                secure: true,
-                maxAge: 1000 * 60 * 60 * 24 * 7,
-                sameSite: "none",
+            httpOnly: true,
+            secure: true,
+            maxAge: 1000 * 60 * 60 * 24 * 7 * 30,
+            sameSite: "none",
             }).json({error:false, user:user._id})
     }
     catch(err){
@@ -77,6 +78,7 @@ export const userLogout=async (req, res) => {
 
 export const checkUserLoggedIn=async (req, res) => {
     try {
+        console.log(req)
       const token = req.cookies.token;
       if (!token) 
         return res.json({loggedIn:false, error:true, message:"no token"});
