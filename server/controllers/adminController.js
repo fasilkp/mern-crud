@@ -1,3 +1,6 @@
+import UserModel from '../models/userModel.js';
+import bcrypt from "bcryptjs"
+import jwt from 'jsonwebtoken'
 
 export async function adminLogin(req, res){
     try
@@ -12,12 +15,11 @@ export async function adminLogin(req, res){
         const token=jwt.sign(
             {
                 admin:true,
-                id:user._id
+                id:admin._id
             }, 
             "myjwtsecretkey"
         )
-        // const exp= new Date()+ 1000*60;
-        return res.cookie("token", token, {
+        return res.cookie("adminToken", token, {
                 httpOnly: true,
                 secure: true,
                 maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -28,4 +30,13 @@ export async function adminLogin(req, res){
         res.json({message:"server error", error:err})
         console.log(err);
     }
+}
+
+export const adminLogout=async (req, res) => {
+    res.cookie("adminToken", "", {
+        httpOnly: true,
+        expires: new Date(0),
+        secure: true,
+        sameSite: "none",
+      }).json({message:"logged out", error:false});
 }
