@@ -9,6 +9,7 @@ import CreateUser from "./component/CreateUser/CreateUser";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import EditUser from "./component/EditUser/EditUser";
 
 function App() {
   axios.defaults.baseURL = "http://localhost:5000/";
@@ -30,6 +31,7 @@ function App() {
           <Route path="/admin" element={<AdminHome />}></Route>
           <Route path="/admin/login" element={<AdminLogin />}></Route>
           <Route path="/admin/create-user" element={<CreateUser />}></Route>
+          <Route path="/admin/edit-user/:id" element={<EditUser />}></Route>
         </Routes>
       </div>
     </Router>

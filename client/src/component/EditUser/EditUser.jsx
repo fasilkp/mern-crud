@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "../UserLogin/userlogin.css";
-import addImg from "../../images/add.avif";
+import editImg from "../../images/edit.avif";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-function CreateUser() {
+function EditUser() {
   const [name, setName] = useState("");
   const [proffession, setProffession] = useState("");
   const [about, setAbout] = useState("");
@@ -13,6 +13,8 @@ function CreateUser() {
   const [password, setPassword] = useState("");
   const [errMessage, setErrMessage]=useState(null)
   const navigate= useNavigate()
+  const {id}=useParams()
+  console.log(id)
   function validationErr() {
     if (
       email.replaceAll(" ", "") === "" ||
@@ -46,7 +48,7 @@ function CreateUser() {
             <div className="card">
               <div className="row g-0">
                 <div className="col-md-6 col-lg-5 d-none d-md-flex align-items-center justify-content-center">
-                  <img src={addImg} alt="login form" className="img-fluid" />
+                  <img src={editImg} alt="login form" className="img-fluid" />
                 </div>
                 <div className="col-md-6 col-lg-7 d-flex align-items-center">
                   <div className="card-body p-4 p-lg-5 text-black">
@@ -131,7 +133,7 @@ function CreateUser() {
                           type="submit"
                           disabled={validationErr()}
                         >
-                          Create
+                          Update User
                         </button>
                       </div>
                     </form>
@@ -146,4 +148,4 @@ function CreateUser() {
   );
 }
 
-export default CreateUser;
+export default EditUser;
