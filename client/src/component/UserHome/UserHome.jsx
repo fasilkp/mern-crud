@@ -7,7 +7,6 @@ function UserHome() {
     useEffect(()=>{
         (async function(){
             const {data} = await axios.get('/check-auth');
-            console.log(data)
         })()
     },[])
     

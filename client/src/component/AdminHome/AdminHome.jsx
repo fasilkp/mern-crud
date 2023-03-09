@@ -10,7 +10,6 @@ function AdminHome() {
   useEffect(()=>{
     (async function(){
         let {data} = await axios.get("/admin/users?search="+search);
-        console.log(data)
         setUsers(data)
     })()
   },[search])

@@ -20,7 +20,6 @@ function UserLogin() {
       let {data}= await axios.post("/login", {
         email, password
       });
-      console.log(data)
       if(!data.error){
           return navigate("/")
       }else{

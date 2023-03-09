@@ -8,7 +8,7 @@ import AdminHome from "./component/AdminHome/AdminHome";
 import CreateUser from "./component/CreateUser/CreateUser";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   axios.defaults.baseURL = "http://localhost:5000/";
@@ -16,8 +16,9 @@ function App() {
   const user = useSelector((state) => {
     return state.user;
   });
-  
-  console.log(user);
+  useEffect(()=>{
+    console.log(Math.random())
+  },[])
   return (
     <Router>
       <div className="App">

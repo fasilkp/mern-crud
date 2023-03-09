@@ -44,7 +44,27 @@ export const adminLogout=async (req, res) => {
 
 export async function getUsersList(req, res){
     let users = await UserModel.find({admin:{$ne:true}, name:new RegExp(req.query.search, 'i')}, {password:0}).lean();
-    console.log(users)
     res.json(users)
 
+}
+
+export async function createUser(req, res){
+    try
+    {
+        const {name, email, password, about, proffession}=req.body;
+        const hashPassword = bcrypt.hashSync(password, salt);
+        const user=await UserModel.findOne({email});
+        if(user){
+            return res.json({error:true, message:"User Already Exist"})
+        }
+        const newUser = new UserModel({name, email,password:hashPassword, about, proffession})
+        await newUser.save();
+        console.log(newUser)
+
+        return res.json({error:false})
+    }
+    catch(err){
+        res.json({error:err})
+        console.log(err);
+    } 
 }

@@ -9,6 +9,7 @@ function CreateUser() {
   const [about, setAbout] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage]=useState(null)
   function validateForm() {
     if (
       email.replaceAll(" ", "") === "" ||
@@ -21,7 +22,6 @@ function CreateUser() {
     }
     return false;
   }
-  console.log(name, email, about, password, proffession)
   return (
     <section className="vh-100 login">
       <div className="container py-5 h-100">
@@ -102,6 +102,11 @@ function CreateUser() {
                           onChange={(e) => setPassword(e.target.value)}
                           className="form-control form-control-lg"
                         />
+                      </div>
+                      <div className="form-outline mb-4">
+                        <label className="form-label text-danger" htmlFor="form2Example27">
+                          {errMessage && errMessage}
+                        </label>
                       </div>
 
                       <div className="pt-1 mb-4">

@@ -30,7 +30,6 @@ function UserRegister() {
       let {data}=await axios.post("/register", {
         name, email, password, about, proffession
       });
-      console.log(data)
       if(!data.error){
           return navigate("/")
       }else{
@@ -38,7 +37,6 @@ function UserRegister() {
       }
     }
   }
-  console.log(name, email, about, password, proffession);
   return (
     <section className="vh-100 login">
       <div className="container py-5 h-100">

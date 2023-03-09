@@ -24,7 +24,6 @@ function AdminLogin() {
         email,
         password,
       });
-      console.log(data)
       if (!data.error) {
         return navigate("/admin/");
       } else {
@@ -87,7 +86,7 @@ function AdminLogin() {
                         <label className="form-label text-danger" htmlFor="form2Example27">
                           {errMessage && errMessage}
                         </label>
-                  </div>
+                      </div>
 
                       <div className="pt-1 mb-4">
                         <button
