@@ -1,15 +1,32 @@
+import axios from 'axios'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import "./userlogin.css"
 
 function UserLogin() {
     const [email, setEmail]=useState("")
     const [password, setPassword]=useState("")
-    function validateForm(){
+    const [errMessage, setErrMessage]=useState(null)
+    const navigate = useNavigate()
+    function validationErr(){
         if(email.replaceAll(' ', "")==="" || password.replaceAll(' ',"")===""){
             return true
         }
         return false
+    }
+    async function handleSubmit(e){
+      e.preventDefault();
+    if (!validationErr()) {
+      let {data}= await axios.post("/login", {
+        email, password
+      });
+      console.log(data)
+      if(!data.error){
+          return navigate("/")
+      }else{
+        setErrMessage(data.message)
+      }
+    }
     }
   return (
     <section className="vh-100">
@@ -25,7 +42,7 @@ function UserLogin() {
             <div className="col-md-6 col-lg-7 d-flex align-items-center">
               <div className="card-body p-4 p-lg-5 text-black">
 
-                <form>
+                <form onSubmit={handleSubmit}>
 
                   <div className="d-flex align-items-center mb-3 pb-1">
                     <i className="fas fa-cubes fa-2x me-3"  ></i>
@@ -43,9 +60,14 @@ function UserLogin() {
                     <label className="form-label" htmlFor="form2Example27">Password</label>
                     <input type="password" id="form2Example27" value={password} onChange={(e)=>setPassword(e.target.value)} className="form-control form-control-lg" />
                   </div>
+                  <div className="form-outline mb-4">
+                        <label className="form-label text-danger" htmlFor="form2Example27">
+                          {errMessage && errMessage}
+                        </label>
+                  </div>
 
                   <div className="pt-1 mb-4">
-                    <button className="btn btn-dark btn-lg btn-block" type="submit" disabled={validateForm()}>Login</button>
+                    <button className="btn btn-dark btn-lg btn-block" type="submit" disabled={validationErr()}>Login</button>
                   </div>
 
                   {/* <a className="small text-muted" href="#!">Forgot password?</a> */}

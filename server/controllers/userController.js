@@ -19,7 +19,6 @@ export async function userRegister(req, res){
             console.log(newUser)
             const token=jwt.sign(
                 {
-                    name:newUser.name,
                     id:newUser._id
                 }, 
                 "myjwtsecretkey"
@@ -43,13 +42,12 @@ export async function userLogin(req, res){
         const {email, password}=req.body;
         const user=await UserModel.findOne({email})
         if(!user) 
-            return res.json({error:true,message:"No email found"})
+            return res.json({error:true,message:"No User found"})
         const userValid=bcrypt.compareSync(password, user.password);
         if(!userValid) 
-            return res.json({error:true, message:"Password wrong"})
+            return res.json({error:true, message:"wrong Password"})
         const token=jwt.sign(
             {
-                name:user.name,
                 id:user._id
             }, 
             "myjwtsecretkey"
