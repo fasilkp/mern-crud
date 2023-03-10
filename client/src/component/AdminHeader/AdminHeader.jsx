@@ -1,8 +1,16 @@
+import axios from 'axios';
 import React from 'react'
 import { FiSearch } from "react-icons/fi";
 import { Link } from 'react-router-dom';
 import './AdminHeader.css'
 function adminHeader({search, setSearch}) {
+  async function logout(){
+    if(window.confirm("are you sure logout")){
+
+      await axios.get("/admin/logout");
+      window.location.href='/admin/logout'
+    }
+  }
   return (
     <div className="navBar">
       <div className="navContainer">
@@ -18,7 +26,7 @@ function adminHeader({search, setSearch}) {
 
         </div>
         <div className="nav-sec 2">
-            <button className='btn btn-dark'>Logout</button>
+            <button className='btn btn-dark' onClick={logout}>Logout</button>
         </div>
       </div>
     </div>

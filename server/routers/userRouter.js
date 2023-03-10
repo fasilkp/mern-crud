@@ -6,7 +6,7 @@ const router=express.Router();
 router.get("/", (req, res)=>{res.json("hai")})
 router.post("/register", userRegister)
 router.post("/login", userLogin)
-router.post("/logout", userLogout)
+router.get("/logout", userLogout)
 router.get("/check-auth", checkUserLoggedIn)
 
 export default router

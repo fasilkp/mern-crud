@@ -31,7 +31,7 @@ function UserRegister() {
         name, email, password, about, proffession
       });
       if(!data.error){
-          return navigate("/")
+        return window.location.reload()
       }else{
         setErrMessage(data.message)
       }
@@ -55,9 +55,9 @@ function UserRegister() {
                     <span className="h1 fw-bold mb-0">Logo</span>
                   </div> */}
 
-                      <h5 className="fw-normal mb-3 pb-3">
-                        Creat a new account
-                      </h5>
+                      <h3 className="fw-normal mb-3 pb-3">
+                        Create a new account
+                      </h3>
 
                       <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="form2Example17">
