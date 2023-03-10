@@ -1,14 +1,17 @@
 import axios from 'axios';
 import React from 'react'
 import { FiSearch } from "react-icons/fi";
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './AdminHeader.css'
-function adminHeader({search, setSearch}) {
+function AdminHeader({search, setSearch}) {
+  const dispatch=useDispatch();
   async function logout(){
     if(window.confirm("are you sure logout")){
 
       await axios.get("/admin/logout");
-      window.location.href='/admin/logout'
+      dispatch({type:"refresh"})
+
     }
   }
   return (
@@ -33,4 +36,4 @@ function adminHeader({search, setSearch}) {
   )
 }
 
-export default adminHeader
+export default AdminHeader

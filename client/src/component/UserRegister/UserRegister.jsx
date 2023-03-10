@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "../UserLogin/userlogin.css";
 import login from "../../images/login.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 function UserRegister() {
   const [name, setName] = useState("");
@@ -11,7 +12,7 @@ function UserRegister() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMessage, setErrMessage]=useState(null)
-  const navigate= useNavigate()
+  const dispatch = useDispatch()
   function validationErr() {
     if (
       email.replaceAll(" ", "") === "" ||
@@ -31,7 +32,7 @@ function UserRegister() {
         name, email, password, about, proffession
       });
       if(!data.error){
-        return window.location.reload()
+        dispatch({type:"refresh"})
       }else{
         setErrMessage(data.message)
       }

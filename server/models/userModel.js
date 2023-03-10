@@ -23,6 +23,10 @@ const UserSchema = new mongoose.Schema({
     },
     admin:{
         default:false
+    },
+    profile:{
+        type:String,
+        default:"avatar.png"
     }
 })
 

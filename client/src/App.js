@@ -8,14 +8,14 @@ import AdminHome from "./component/AdminHome/AdminHome";
 import CreateUser from "./component/CreateUser/CreateUser";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import EditUser from "./component/EditUser/EditUser";
 
 function App() {
   axios.defaults.baseURL = "http://localhost:5000/";
   axios.defaults.withCredentials = true;
 
-  const {user, admin} = useSelector((state) => {
+  const {user, admin, refresh} = useSelector((state) => {
     return state;
   });
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function App() {
       let { data:adminData } = await axios.get("/admin/check-auth");
       dispatch({ type: "admin", payload: { login: adminData.loggedIn } })
     })()
-  }, [])
+  }, [refresh])
   console.log(user)
   return (
     <Router>

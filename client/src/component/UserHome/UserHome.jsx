@@ -1,26 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import './userhome.css'
-import { useNavigate } from 'react-router-dom'
 import EditProfileModal from '../../modal/EditProfilePicture'
 
 function UserHome() {
-    const navigate = useNavigate();
-
+    const dispatch = useDispatch()
     async function logout() {
         if(window.confirm("Are you sure logout ")){
-
             await axios.get('/logout')
-            return window.location.reload()
+            dispatch({type:"refresh"})
         }
-
     }
     const user= useSelector((state) => {
         return state.user;
       });
       console.log(user)
   const [open, setOpen]=useState(false)
+  const baseImgUrl="http://localhost:5000/uploads/"
 
 
     return (
@@ -35,7 +32,7 @@ function UserHome() {
                     <div className="card p-3 py-4">
 
                         <div className="text-center">
-                            <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" className="rounded-circle" />
+                            <img src={baseImgUrl+user.details.profile} width="100" className="rounded-circle" />
                         </div>
 
                         <div className="text-center mt-3">
@@ -64,7 +61,7 @@ function UserHome() {
                 </div>
 
             </div>
-            <EditProfileModal open={open} setOpen={setOpen}/>
+            <EditProfileModal open={open} id={user.details._id} setOpen={setOpen}/>
 
 
         </div>

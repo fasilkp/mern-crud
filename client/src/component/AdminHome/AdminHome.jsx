@@ -8,7 +8,9 @@ import { Link } from "react-router-dom";
 function AdminHome() {
   const [users, setUsers]=useState([])
   const [search, setSearch]=useState('')
-  const [refresh, setRefresh]=useState(false)
+  const [refresh, setRefresh]=useState(false);
+  const baseImgUrl="http://localhost:5000/uploads/"
+
   useEffect(()=>{
     (async function(){
         let {data} = await axios.get("/admin/users?search="+search);
@@ -43,8 +45,7 @@ function AdminHome() {
                       <td>
                         <div className="d-flex align-items-center">
                           <img
-                            src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                            alt=""
+                            src={baseImgUrl+item.profile}
                             style={{width: "45px", height: "45px"}}
                             className="rounded-circle"
                           />

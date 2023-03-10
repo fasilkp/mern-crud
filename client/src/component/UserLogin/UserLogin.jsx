@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import "./userlogin.css"
 
@@ -7,7 +8,7 @@ function UserLogin() {
     const [email, setEmail]=useState("")
     const [password, setPassword]=useState("")
     const [errMessage, setErrMessage]=useState(null)
-    const navigate = useNavigate()
+    const dispatch = useDispatch();
     function validationErr(){
         if(email.replaceAll(' ', "")==="" || password.replaceAll(' ',"")===""){
             return true
@@ -21,7 +22,7 @@ function UserLogin() {
         email, password
       });
       if(!data.error){
-          return window.location.reload()
+        dispatch({type:"refresh"})
       }else{
         setErrMessage(data.message)
       }
