@@ -94,7 +94,7 @@ export const checkUserLoggedIn = async (req, res) => {
 
 export const editProfile = async (req, res) => {
     try {
-        await UserModel.findByIdAndUpdate(req.body.id, {
+        await UserModel.findByIdAndUpdate(req.user._id, {
             $set: {
                 profile: req.file.filename
             }
