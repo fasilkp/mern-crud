@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import './userhome.css'
 import EditProfileModal from '../../modal/EditProfilePicture'
+import { Link } from 'react-router-dom'
 
 function UserHome() {
     const dispatch = useDispatch()
@@ -44,10 +45,10 @@ function UserHome() {
 
                             </div>
 
-                            <div className="buttons mt-4">
+                            <div className="mt-4">
 
-                                <button className="btn btn-outline-primary px-4" onClick={logout}>Logout</button>
-                                <button className="btn btn-primary px-4 ms-3" onClick={()=>setOpen(true)}>Edit Profile Picture</button>
+                                {/* <button className="btn btn-outline-primary px-4" onClick={logout}>Logout</button> */}
+                               <Link to="/profile"><button className="btn btn-dark px-4 ms-3">Go to Profile</button></Link> 
                             </div>
 
 

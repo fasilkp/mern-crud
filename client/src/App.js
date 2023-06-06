@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import EditUser from "./component/EditUser/EditUser";
+import Profile from './component/Profile/Profile'
 
 function App() {
   axios.defaults.baseURL = "http://localhost:5000/";
@@ -25,6 +26,7 @@ function App() {
       dispatch({ type: "user", payload: { login: data.loggedIn, details:data.user } })
       let { data:adminData } = await axios.get("/admin/check-auth");
       dispatch({ type: "admin", payload: { login: adminData.loggedIn } })
+      console.log(adminData)
     })()
   }, [refresh])
   console.log(user)
@@ -37,12 +39,14 @@ function App() {
             <Route path="/login" element={<UserLogin />}></Route>
             <Route path="/register" element={<UserRegister />}></Route>
             <Route path="/" element={ <Navigate to="/login" replace={true} />}></Route>
+            <Route path="/profile" element={ <Navigate to="/login" replace={true} />}></Route>
           </Routes>
         }
         {
           user.login === true &&
           <Routes>
             <Route path="/" element={<UserHome />}></Route>
+            <Route path="/profile" element={<Profile />}></Route>
             <Route path="/login" element={ <Navigate to="/" replace={true} />}></Route>
             <Route path="/register" element={ <Navigate to="/" replace={true} />}></Route>
           </Routes>
